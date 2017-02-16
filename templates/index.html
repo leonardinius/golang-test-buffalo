@@ -25,7 +25,7 @@
         {{#each routes as |r|}}
         <tr>
           <td>{{r.Method}}</td>
-          <td>{{r.Path}}</td>
+          <td><a href="{{r.Path}}">{{r.Path}}</a></td>
           <td><code>{{r.HandlerName}}</code></td>
         </tr>
         {{/each}}

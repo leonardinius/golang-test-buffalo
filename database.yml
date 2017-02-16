@@ -1,16 +1,16 @@
 development:
   dialect: postgres
-  database: test-buffalo_development
-  user: postgres
-  password: postgres
+  database: groceries
+  user: groceries
+  password: groceries
   host: 127.0.0.1
   pool: 5
 
 test:
   dialect: postgres
-  database: test-buffalo_test
-  user: postgres
-  password: postgres
+  database: groceries
+  user: groceries
+  password: groceries
   host: 127.0.0.1
 
 production:

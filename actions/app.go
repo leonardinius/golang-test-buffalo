@@ -6,7 +6,9 @@ import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/leonids/test-buffalo/models"
+	mw "github.com/leonids/test-buffalo/middleware"
 	"github.com/markbates/going/defaults"
+	"github.com/gobuffalo/buffalo/render"
 )
 
 // ENV is used to help switch settings based on where the
@@ -26,7 +28,20 @@ func App() *buffalo.App {
 
 		app.Use(middleware.PopTransaction(models.DB))
 
+		// index page
 		app.GET("/", HomeHandler)
+
+		g := app.Group("/api/v1")
+		g.Use(mw.APIAuthorizer)
+		// simple parameter tests
+		g.GET("/user/", func(c buffalo.Context) error {
+			name := "Hello, " + defaults.String(c.Param("name"), "<unknown>")
+			return c.Render(200, render.String(name))
+		})
+		g.GET("/users/{name}", func(c buffalo.Context) error {
+			name := "Hello, " + c.Param("name")
+			return c.Render(200, render.String(name))
+		})
 
 		app.ServeFiles("/assets", assetsPath())
 	}
