@@ -3,36 +3,31 @@ package middleware
 import (
 	"github.com/gobuffalo/buffalo"
 	"net/http"
+	"os"
 )
 
-type MwHandler struct {
+type HttpHandlerWrapper struct {
 	h     buffalo.Handler
 	c     buffalo.Context
 	error error
 }
 
-func (mw MwHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (mw HttpHandlerWrapper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	os.Stderr.WriteString("wrapper::before")
 	mw.error = mw.h(mw.c)
+	os.Stderr.WriteString("wrapper::after")
 }
 
 func HttpMiddleware(handler func(http.Handler) http.Handler) func(buffalo.Handler) buffalo.Handler {
 	return func(next buffalo.Handler) buffalo.Handler {
 
-		mw := MwHandler{h: next}
+		wrapper := HttpHandlerWrapper{h: next}
 
 		return func(c buffalo.Context) error {
-			mw.c = c
-			current := handler(mw)
-
+			wrapper.c = c
+			current := handler(wrapper)
 			current.ServeHTTP(c.Response(), c.Request())
-			error := mw.error
-
-			if error != nil {
-				mw.ServeHTTP(c.Response(), c.Request())
-				error = mw.error
-			}
-
-			return error
+			return wrapper.error
 		}
 	}
 }

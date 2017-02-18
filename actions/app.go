@@ -36,8 +36,8 @@ func App() *buffalo.App {
 		app.GET("/", HomeHandler)
 
 		g := app.Group("/api/v1")
-		g.Use(mw.HttpMiddleware(httpauth.SimpleBasicAuth("leonids", "maslovs")))
 		g.Use(mw.APIAuthorizer)
+		g.Use(mw.HttpMiddleware(httpauth.SimpleBasicAuth("leonids", "maslovs")))
 
 		// simple parameter tests
 		g.GET("/username/", func(c buffalo.Context) error {
