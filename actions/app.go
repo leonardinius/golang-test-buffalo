@@ -10,7 +10,6 @@ import (
 	mw "github.com/leonids/test-buffalo/actions/middleware"
 	"github.com/leonids/test-buffalo/models"
 	"github.com/markbates/going/defaults"
-	"github.com/markbates/goth/gothic"
 )
 
 // ENV is used to help switch settings based on where the
@@ -37,7 +36,7 @@ func App() *buffalo.App {
 
 		g := app.Group("/api/v1")
 		g.Use(mw.APIAuthorizer)
-		g.Use(mw.HttpMiddleware(httpauth.SimpleBasicAuth("leonids", "maslovs")))
+		g.Use(mw.WrapHandler(httpauth.SimpleBasicAuth("leonids", "maslovs")))
 
 		// simple parameter tests
 		g.GET("/username/", func(c buffalo.Context) error {
@@ -50,10 +49,6 @@ func App() *buffalo.App {
 		})
 
 		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
-
-		auth := app.Group("/auth")
-		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
-		auth.GET("/{provider}/callback", AuthCallback)
 
 		app.ServeFiles("/assets", assetsPath())
 	}

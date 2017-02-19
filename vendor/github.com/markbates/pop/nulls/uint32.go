@@ -14,10 +14,6 @@ type UInt32 struct {
 	Valid  bool // Valid is true if Int is not NULL
 }
 
-func (ns UInt32) Interface() interface{} {
-	return ns.UInt32
-}
-
 // NewUInt32 returns a new, properly instantiated
 // Int object.
 func NewUInt32(i uint32) UInt32 {

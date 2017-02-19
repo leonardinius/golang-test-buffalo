@@ -14,10 +14,6 @@ type Int struct {
 	Valid bool // Valid is true if Int is not NULL
 }
 
-func (ns Int) Interface() interface{} {
-	return ns.Int
-}
-
 // NewInt returns a new, properly instantiated
 // Int object.
 func NewInt(i int) Int {

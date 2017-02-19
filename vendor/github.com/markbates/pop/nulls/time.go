@@ -13,10 +13,6 @@ type Time struct {
 	Valid bool // Valid is true if Time is not NULL
 }
 
-func (ns Time) Interface() interface{} {
-	return ns.Time
-}
-
 // NewTime returns a new, properly instantiated
 // Time object.
 func NewTime(t time.Time) Time {

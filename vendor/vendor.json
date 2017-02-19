@@ -313,6 +313,12 @@
 			"revisionTime": "2017-01-13T21:44:12Z"
 		},
 		{
+			"checksumSHA1": "durUKK9GC16GtpP03DKgYuj+EHk=",
+			"path": "github.com/markbates/goth",
+			"revision": "182d9f715ed3b57c97f86d231ce7b1a0f923cf1a",
+			"revisionTime": "2017-02-14T05:56:35Z"
+		},
+		{
 			"checksumSHA1": "bk6AobW8Fx/5DcTTJUkhfCfQsi8=",
 			"path": "github.com/markbates/grift/grift",
 			"revision": "acf1504c09ccccde2aaee138b5233e01b8e2fa8c",

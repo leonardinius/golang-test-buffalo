@@ -13,10 +13,6 @@ type Bool struct {
 	Valid bool
 }
 
-func (ns Bool) Interface() interface{} {
-	return ns.Bool
-}
-
 // NewBool returns a new, properly instantiated
 // Boll object.
 func NewBool(b bool) Bool {
