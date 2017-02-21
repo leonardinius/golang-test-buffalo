@@ -8,3 +8,6 @@ node_modules/
 rice-box.go
 public/assets/
 test-buffalo
+
+debug
+.vscode/
